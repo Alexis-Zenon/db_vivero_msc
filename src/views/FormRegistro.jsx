@@ -18,7 +18,7 @@ export default function FormRegistro({ onCambiarVista }) {
       // Conexión a tu endpoint de creación de clientes de NestJS
       // FormRegistro.jsx (Línea 18 aproximada)
       const response = await fetch(
-        "http://localhost:3000/usuarios/registrar-cliente",
+        "http://https://db-vivero-msc.onrender.com/usuarios/registrar-cliente",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

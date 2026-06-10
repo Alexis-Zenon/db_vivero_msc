@@ -20,7 +20,7 @@ export default function RegistroMermas({ onMermaRegistrada }) {
 
   const obtenerPlantas = async () => {
     try {
-      const respuesta = await fetch("http://localhost:3000/plantas");
+      const respuesta = await fetch("http://https://db-vivero-msc.onrender.com/plantas");
       if (respuesta.ok) {
         const datos = await respuesta.json();
         // Filtrar solo las que tengan stock disponible para dar de baja
@@ -60,7 +60,7 @@ export default function RegistroMermas({ onMermaRegistrada }) {
     setGuardando(true);
 
     try {
-      const respuesta = await fetch("http://localhost:3000/mermas/registrar", {
+      const respuesta = await fetch("http://https://db-vivero-msc.onrender.com/mermas/registrar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

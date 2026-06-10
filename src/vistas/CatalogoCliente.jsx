@@ -20,7 +20,7 @@ export default function CatalogoCliente({ plantas: plantasProp, temporadas = [] 
 
   const cargarCatalogo = async () => {
     try {
-      const res = await fetch("http://localhost:3000/plantas");
+      const res = await fetch("http://https://db-vivero-msc.onrender.com/plantas");
       if (res.ok) {
         const datos = await res.json();
         

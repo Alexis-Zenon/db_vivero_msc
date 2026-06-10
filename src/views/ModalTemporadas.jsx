@@ -10,7 +10,7 @@ export default function ModalTemporadas({ isOpen, onClose, temporadas, plantas, 
   const ejecutarCambioEnBaseDatos = async (auto, idManual = null) => {
     setLoadingAccion(true);
     try {
-      const res = await fetch("http://localhost:3000/temporadas/cambiar-modo", {
+      const res = await fetch("http://https://db-vivero-msc.onrender.com/temporadas/cambiar-modo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

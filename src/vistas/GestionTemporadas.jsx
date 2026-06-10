@@ -18,7 +18,7 @@ export default function GestionTemporadas() {
 
   const obtenerTemporadas = async () => {
     try {
-      const res = await fetch('http://localhost:3000/temporadas');
+      const res = await fetch('http://https://db-vivero-msc.onrender.com/temporadas');
       if (res.ok) {
         const datos = await res.json();
         setTemporadas(datos);
@@ -43,8 +43,8 @@ export default function GestionTemporadas() {
 
     try {
       const url = idEditando 
-        ? `http://localhost:3000/temporadas/${idEditando}` 
-        : 'http://localhost:3000/temporadas';
+        ? `http://https://db-vivero-msc.onrender.com/temporadas/${idEditando}` 
+        : 'http://https://db-vivero-msc.onrender.com/temporadas';
       
       const method = idEditando ? 'PATCH' : 'POST';
 
@@ -79,7 +79,7 @@ export default function GestionTemporadas() {
     if (!confirm('⚠️ ¿Estás seguro de eliminar esta configuración de temporada?')) return;
     
     try {
-      const res = await fetch(`http://localhost:3000/temporadas/${id}`, {
+      const res = await fetch(`http://https://db-vivero-msc.onrender.com/temporadas/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
