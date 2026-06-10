@@ -1,0 +1,19 @@
+/* ==================== REGLAS ESPECIALES PARA IMPRESORAS ==================== */
+@media print {
+  /* Oculta absolutamente toda la página web */
+  .ocultar-en-impresion, header, main, footer, .position-fixed {
+    display: none !important;
+  }
+  
+  /* Quita márgenes y fondos grises innecesarios de la ventana */
+  body, .alinear-pantalla-impresion {
+    background-color: #fff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Muestra el diseño del ticket limpio en la hoja */
+  .seccion-ticket-imprimible {
+    display: block !important;
+  }
+}
