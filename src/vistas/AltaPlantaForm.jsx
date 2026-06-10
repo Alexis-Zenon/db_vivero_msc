@@ -41,7 +41,7 @@ export default function AltaPlantaForm({ temporadas, onPlantaRegistrada }) {
     };
 
     try {
-      const respuesta = await fetch("http://https://db-vivero-msc.onrender.com/plantas", {
+      const respuesta = await fetch("http://db-vivero-msc.onrender.com/plantas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

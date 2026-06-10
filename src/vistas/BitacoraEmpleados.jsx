@@ -10,7 +10,7 @@ export default function BitacoraEmpleados() {
 
   const obtenerPersonal = async () => {
     try {
-      const res = await fetch("http://https://db-vivero-msc.onrender.com/usuarios/lista-personal");
+      const res = await fetch("http://db-vivero-msc.onrender.com/usuarios/lista-personal");
       if (res.ok) {
         const datos = await res.json();
         setPersonal(datos);
@@ -26,7 +26,7 @@ export default function BitacoraEmpleados() {
     if (!window.confirm(`¿Seguro que deseas eliminar a ${nombre}?`)) return;
     
     try {
-      const res = await fetch(`http://https://db-vivero-msc.onrender.com/usuarios/${id}`, { method: "DELETE" });
+      const res = await fetch(`http://db-vivero-msc.onrender.com/usuarios/${id}`, { method: "DELETE" });
       if (res.ok) {
         alert("Usuario eliminado correctamente.");
         obtenerPersonal();

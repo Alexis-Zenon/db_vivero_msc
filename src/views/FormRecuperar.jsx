@@ -18,7 +18,7 @@ export default function FormRecuperar({ onCambiarVista }) {
     try {
       // Dentro de FormRecuperar.jsx, en la función verificarCorreo:
       const response = await fetch(
-        "http://https://db-vivero-msc.onrender.com/auth/verificar-correo",
+        "http://db-vivero-msc.onrender.com/auth/verificar-correo",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ export default function FormRecuperar({ onCambiarVista }) {
 
     try {
       const response = await fetch(
-        "http://https://db-vivero-msc.onrender.com/auth/restablecer-password",
+        "http://db-vivero-msc.onrender.com/auth/restablecer-password",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

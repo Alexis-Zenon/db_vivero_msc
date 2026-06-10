@@ -216,7 +216,7 @@ export default function PuntoDeVenta({
     }
 
     try {
-      const respuesta = await fetch("http://https://db-vivero-msc.onrender.com/ventas", {
+      const respuesta = await fetch("http://db-vivero-msc.onrender.com/ventas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datosVenta),

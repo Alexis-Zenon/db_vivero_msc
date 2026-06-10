@@ -17,7 +17,7 @@ export default function BalanceFinanciero() {
     const cargarBalance = async () => {
       setLoading(true);
       try {
-        const respuesta = await fetch(`http://https://db-vivero-msc.onrender.com/mermas/balance?periodo=${periodo}`);
+        const respuesta = await fetch(`http://db-vivero-msc.onrender.com/mermas/balance?periodo=${periodo}`);
         if (respuesta.ok) {
           const datos = await respuesta.json();
           setDatosBalance(datos);

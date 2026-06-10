@@ -48,7 +48,7 @@ export default function AltaAdministradores({ usuarioActivo, onRegistroExitoso }
     }
 
     try {
-      const resValida = await fetch("http://https://db-vivero-msc.onrender.com/usuarios/verificar-password", {
+      const resValida = await fetch("http://db-vivero-msc.onrender.com/usuarios/verificar-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -94,7 +94,7 @@ export default function AltaAdministradores({ usuarioActivo, onRegistroExitoso }
     setGuardando(true);
 
     try {
-      const respuesta = await fetch("http://https://db-vivero-msc.onrender.com/usuarios/registrar-personal", {
+      const respuesta = await fetch("http://db-vivero-msc.onrender.com/usuarios/registrar-personal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

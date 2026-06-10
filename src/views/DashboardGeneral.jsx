@@ -38,7 +38,7 @@ export default function DashboardGeneral({ usuario, onLogout }) {
     try {
       // Carga de temporadas
       try {
-        const resTemporadas = await fetch('http://https://db-vivero-msc.onrender.com/temporadas');
+        const resTemporadas = await fetch('http://db-vivero-msc.onrender.com/temporadas');
         if (resTemporadas.ok) setTemporadas(await resTemporadas.json());
       } catch (errTemp) {
         console.error("Error al cargar temporadas:", errTemp);
@@ -46,7 +46,7 @@ export default function DashboardGeneral({ usuario, onLogout }) {
 
       // Carga de plantas
       try {
-        const resPlantas = await fetch('http://https://db-vivero-msc.onrender.com/plantas');
+        const resPlantas = await fetch('http://db-vivero-msc.onrender.com/plantas');
         if (resPlantas.ok) {
           const dataPlantas = await resPlantas.json();
           setPlantas(dataPlantas);
@@ -66,7 +66,7 @@ export default function DashboardGeneral({ usuario, onLogout }) {
       
       // Carga de configuración del ticket
       try {
-        const resConfig = await fetch('http://https://db-vivero-msc.onrender.com/config-ticket');
+        const resConfig = await fetch('http://db-vivero-msc.onrender.com/config-ticket');
         if (resConfig.ok) {
           const datosBD = await resConfig.json();
           if (datosBD) setDatosTicket(datosBD);
@@ -86,7 +86,7 @@ export default function DashboardGeneral({ usuario, onLogout }) {
 
   const guardarConfiguracionLocalidad = async (nuevosDatos) => {
     try {
-      const respuesta = await fetch('http://https://db-vivero-msc.onrender.com/config-ticket', {
+      const respuesta = await fetch('http://db-vivero-msc.onrender.com/config-ticket', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevosDatos),
