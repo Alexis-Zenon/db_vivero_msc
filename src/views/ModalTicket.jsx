@@ -14,7 +14,7 @@ export default function ModalTicket({ isOpen, onClose, carrito, totalVenta, plan
   // Este useEffect consulta a tu API apenas se abre el modal
   useEffect(() => {
     if (isOpen) {
-      fetch("http://db-vivero-msc.onrender.com/config-ticket")
+      fetch("https://db-vivero-msc.onrender.com/config-ticket")
         .then(res => res.json())
         .then(data => {
             if (data) setConfig(data);

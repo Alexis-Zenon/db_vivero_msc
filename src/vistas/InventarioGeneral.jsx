@@ -52,7 +52,7 @@ export default function InventarioGeneral({
     setGuardando(true);
     try {
       const respuesta = await fetch(
-        `http://db-vivero-msc.onrender.com/plantas/${plantaEditando.id}`,
+        `https://db-vivero-msc.onrender.com/plantas/${plantaEditando.id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -88,7 +88,7 @@ export default function InventarioGeneral({
 
     try {
       const respuesta = await fetch(
-        `http://db-vivero-msc.onrender.com/plantas/${id}/visibilidad`,
+        `https://db-vivero-msc.onrender.com/plantas/${id}/visibilidad`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -117,7 +117,7 @@ export default function InventarioGeneral({
       )
     ) {
       try {
-        const respuesta = await fetch(`http://db-vivero-msc.onrender.com/plantas/${id}`, {
+        const respuesta = await fetch(`https://db-vivero-msc.onrender.com/plantas/${id}`, {
           method: "DELETE",
         });
 

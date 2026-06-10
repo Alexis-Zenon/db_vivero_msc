@@ -5,7 +5,7 @@ import { MermasService } from './mermas.service';
 export class MermasController {
   constructor(private readonly mermasService: MermasService) {}
 
-  // POST: http://db-vivero-msc.onrender.com/mermas/registrar
+  // POST: https://db-vivero-msc.onrender.com/mermas/registrar
   @Post('registrar')
   async crearMerma(
     @Body('idProducto', ParseIntPipe) idProducto: number,
@@ -15,7 +15,7 @@ export class MermasController {
     return await this.mermasService.registrarMerma(idProducto, cantidad, motivo);
   }
 
-  // GET: http://db-vivero-msc.onrender.com/mermas/balance?periodo=mes
+  // GET: https://db-vivero-msc.onrender.com/mermas/balance?periodo=mes
   @Get('balance')
   async verBalance(@Query('periodo') periodo: string = 'semana') {
     return await this.mermasService.obtenerBalance(periodo);

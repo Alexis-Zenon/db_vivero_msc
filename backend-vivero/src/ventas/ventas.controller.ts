@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { VentasService } from './ventas.service';
 
-@Controller('ventas') // 📍 Habilita el endpoint http://db-vivero-msc.onrender.com/ventas
+@Controller('ventas') // 📍 Habilita el endpoint https://db-vivero-msc.onrender.com/ventas
 export class VentasController {
   constructor(private readonly ventasService: VentasService) {}
 
