@@ -1,5 +1,5 @@
 import React from "react";
-esport default function InventarioVentas() {
+export default function InventarioVentas() {
   return (
     <div>
       <h1>Inventario de Ventas</h1>
