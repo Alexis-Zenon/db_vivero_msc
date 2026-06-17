@@ -3,19 +3,17 @@ import { useState, useEffect } from "react";
 import miLogo from "../assets/logotipo.png";
 import ModalTemporadas from "./ModalTemporadas";
 
+// Rutas corregidas: Salen de "views" y entran a "vistas"
 import PuntoDeVenta from "../vistas/PuntoDeVenta";
 import CatalogoCliente from "../vistas/CatalogoCliente";
 import RegistroMermas from "../vistas/RegistroMermas";
 import BitacoraEmpleados from "../vistas/BitacoraEmpleados";
 import AltaAdministradores from "../vistas/AltaAdministradores";
-
 import InventarioGeneral from "../vistas/InventarioGeneral";
 import AltaPlantaForm from "../vistas/AltaPlantaForm";
 import BalanceFinanciero from "../vistas/BalanceFinanciero"; 
 import GestionTemporadas from "../vistas/GestionTemporadas"; 
-
-// ➕ PASO 1: Importar tu nuevo componente desde la carpeta de vistas
-import  InventarioVentas  from "../vistas/InventarioVentas"; 
+import InventarioVentas from "../vistas/InventarioVentas"; 
 
 import ModalConfigLocalidad from "./ModalConfigLocalidad";
 
