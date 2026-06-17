@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Clock, User, CreditCard } from "lucide-react";
 
-export default function InventarioVentas() { //  Corregido: "export" con x
+export default function InventarioVentas() {
   const [ventas, setVentas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [filaExpandida, setFilaExpandida] = useState(null);
@@ -35,35 +34,37 @@ export default function InventarioVentas() { //  Corregido: "export" con x
   };
 
   return (
-    <div className="container-fluid py-4 min-vh-100" style={{ backgroundColor: "#112217", color: "#ffffff" }}>
+    <div className="container-fluid py-4" style={{ minHeight: "100vh" }}>
+      {/* Encabezado */}
       <div className="card mb-4" style={{ backgroundColor: "#162e20", border: "1px solid #198754", borderRadius: "12px" }}>
         <div className="card-body d-flex justify-content-between align-items-center">
           <div>
-            <h2 className="mb-1" style={{ color: "#28a745" }}><font color="#28a745">📋 Historial de Ventas</font></h2>
-            <p className="mb-0" style={{ color: "#a0aec0" }}><font color="#a0aec0">Auditoría y control financiero (MsC Vivero y Plantas)</font></p>
+            <h2 className="mb-1 fw-bold" style={{ color: "#28a745" }}>📋 Historial de Ventas</h2>
+            <p className="mb-0" style={{ color: "#a0aec0" }}>Auditoría y control financiero (MsC Vivero y Plantas)</p>
           </div>
-          <span className="badge bg-success fs-6" style={{ backgroundColor: "#28a745" }}>Total registros: {ventas.length}</span>
+          <span className="badge bg-success fs-6" style={{ padding: "10px 15px" }}>Total registros: {ventas.length}</span>
         </div>
       </div>
 
-      <div className="card shadow" style={{ backgroundColor: "#162e20", border: "1px solid #1a3a26", borderRadius: "12px" }}>
+      {/* Tabla */}
+      <div className="card shadow" style={{ backgroundColor: "#162e20", border: "1px solid #1a3a26", borderRadius: "12px", overflow: "hidden" }}>
         <div className="card-body p-0">
           {cargando ? (
             <div className="text-center p-5">
               <div className="spinner-border text-success" role="status"></div>
-              <p className="mt-3" style={{ color: "#ffffff" }}><font color="#ffffff">Cargando ventas...</font></p>
+              <p className="mt-3 text-white">Cargando ventas...</p>
             </div>
           ) : ventas.length > 0 ? (
             <div className="table-responsive">
-              <table className="table table-dark align-middle mb-0" style={{ backgroundColor: "#162e20", margin: 0 }}>
+              <table className="table table-dark table-hover align-middle mb-0">
                 <thead>
                   <tr style={{ backgroundColor: "#198754" }}>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }}><font color="#ffffff">ID Venta</font></th>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }}><font color="#ffffff">Fecha</font></th>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }}><font color="#ffffff">Cajero</font></th>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }}><font color="#ffffff">Método Pago</font></th>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }} className="text-end"><font color="#ffffff">Total</font></th>
-                    <th style={{ backgroundColor: "#198754", color: "#ffffff", padding: "15px" }} className="text-center"><font color="#ffffff">Detalles</font></th>
+                    <th style={{ color: "#ffffff", padding: "15px" }}>ID Venta</th>
+                    <th style={{ color: "#ffffff", padding: "15px" }}>Fecha</th>
+                    <th style={{ color: "#ffffff", padding: "15px" }}>Atendió</th>
+                    <th style={{ color: "#ffffff", padding: "15px" }}>Método Pago</th>
+                    <th style={{ color: "#ffffff", padding: "15px" }} className="text-end">Total</th>
+                    <th style={{ color: "#ffffff", padding: "15px" }} className="text-center">Detalles</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,30 +72,32 @@ export default function InventarioVentas() { //  Corregido: "export" con x
                     const expandida = filaExpandida === venta.id_venta;
                     return (
                       <React.Fragment key={venta.id_venta}>
-                        <tr style={{ cursor: "pointer", backgroundColor: "#162e20" }} onClick={() => toggleFila(venta.id_venta)}>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px" }}><span className="badge bg-secondary">#{venta.id_venta}</span></td>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px", color: "#ffffff" }}><Clock size={15} className="me-2" style={{ color: "#28a745" }} />{formatearFecha(venta.fecha_venta)}</td>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px", color: "#ffffff" }}><User size={15} className="me-2" style={{ color: "#28a745" }} />{venta.nombre_cajero || `Cajero #${venta.id_usuario_cajero}`}</td>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px" }}><span className={`badge ${venta.metodo_pago === "Efectivo" ? "bg-success" : "bg-primary"}`}><CreditCard size={12} className="me-1" />{venta.metodo_pago}</span></td>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px", color: "#28a745" }} className="text-end fw-bold">{formatearDinero(venta.total)}</td>
-                          <td style={{ backgroundColor: "#162e20", padding: "15px", color: "#ffffff" }} className="text-center">{expandida ? <ChevronUp size={18} /> : <ChevronDown size={18} />}</td>
+                        <tr style={{ cursor: "pointer" }} onClick={() => toggleFila(venta.id_venta)}>
+                          <td className="text-white" style={{ padding: "15px" }}><span className="badge bg-secondary">#{venta.id_venta}</span></td>
+                          <td className="text-white" style={{ padding: "15px" }}>📅 {formatearFecha(venta.fecha_venta)}</td>
+                          <td className="text-white" style={{ padding: "15px", textTransform: "capitalize" }}>👤 {venta.nombre_cajero || `Cajero #${venta.id_usuario_cajero}`}</td>
+                          <td className="text-white" style={{ padding: "15px" }}>
+                            <span className="badge bg-success">💳 {venta.metodo_pago}</span>
+                          </td>
+                          <td style={{ padding: "15px", color: "#2ea44f" }} className="text-end fw-bold">{formatearDinero(venta.total)}</td>
+                          <td className="text-white" style={{ padding: "15px", textAlign: "center" }}>{expandida ? "▲" : "▼"}</td>
                         </tr>
                         {expandida && (
                           <tr>
                             <td colSpan="6" style={{ backgroundColor: "#0f2015", padding: "20px" }}>
-                              <div style={{ backgroundColor: "#0f2015" }}>
-                                <h5 style={{ color: "#28a745" }} className="mb-3"><font color="#28a745">📦 Artículos Comprados</font></h5>
+                              <div>
+                                <h5 style={{ color: "#28a745" }} className="mb-3 fw-bold">📦 Artículos Comprados</h5>
                                 <div className="row">
                                   {venta.detalles && venta.detalles.length > 0 ? (
                                     venta.detalles.map((det, index) => (
                                       <div key={index} className="col-md-6 col-lg-4 mb-3">
                                         <div className="card h-100" style={{ backgroundColor: "#162e20", border: "1px solid #28a745" }}>
-                                          <div className="card-body" style={{ color: "#ffffff" }}>
-                                            <h6 className="fw-bold"><font color="#ffffff">{det.nombre_planta}</font></h6>
+                                          <div className="card-body text-white">
+                                            <h6 className="fw-bold text-success">{det.nombre_planta}</h6>
                                             {det.nombre_cientifico && <small style={{ color: "#a0aec0", fontStyle: "italic" }} className="d-block mb-2">({det.nombre_cientifico})</small>}
                                             <p className="mb-1">Cantidad: <strong>{det.cantidad}</strong></p>
                                             <p className="mb-1">Precio: <strong>{formatearDinero(det.precio_unitario)}</strong></p>
-                                            <p className="fw-bold mb-0" style={{ color: "#28a745" }}>Subtotal: {formatearDinero(det.cantidad * det.precio_unitario)}</p>
+                                            <p className="fw-bold mb-0 text-success">Subtotal: {formatearDinero(det.cantidad * det.precio_unitario)}</p>
                                           </div>
                                         </div>
                                       </div>
@@ -107,9 +110,9 @@ export default function InventarioVentas() { //  Corregido: "export" con x
                                 <div className="row justify-content-end">
                                   <div className="col-md-4">
                                     <div className="card" style={{ backgroundColor: "#162e20", border: "1px solid #28a745" }}>
-                                      <div className="card-body" style={{ color: "#ffffff" }}>
+                                      <div className="card-body text-white">
                                         <div className="d-flex justify-content-between"><span>Monto recibido:</span><strong>{formatearDinero(venta.pago_con)}</strong></div>
-                                        <div className="d-flex justify-content-between mt-2"><span>Cambio:</span><strong style={{ color: "#ff4d4d" }}>{formatearDinero(venta.cambio)}</strong></div>
+                                        <div className="d-flex justify-content-between mt-2"><span>Cambio:</span><strong className="text-danger">{formatearDinero(venta.cambio)}</strong></div>
                                       </div>
                                     </div>
                                   </div>
