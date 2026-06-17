@@ -54,147 +54,84 @@ export default function InventarioVentas() {
   };
 
   return (
-    <div style={styles.dashboardContainer}>
-      {/* Encabezado con Tarjeta de Cristal */}
-      <div style={styles.headerCard}>
-        <div style={styles.titleContainer}>
-          <span style={styles.iconWrapper}>📋</span>
-          <div>
-            <h2 style={styles.mainTitle}>Historial de Ventas</h2>
-            <p style={styles.subtitle}>Auditoría, control financiero y desglose de plantas vendidas</p>
-          </div>
-        </div>
-        <div style={styles.badgeVentas}>
-          Total Registros: {ventas.length}
+  <div style={styles.dashboardContainer}>
+    {/* Encabezado con Tarjeta de Cristal */}
+    <div style={styles.headerCard}>
+      <div style={styles.titleContainer}>
+        <span style={styles.iconWrapper}>📋</span>
+        <div>
+          {/* Cambiamos a colores fijos para romper el blanco del fondo general */}
+          <h2 style={{ ...styles.mainTitle, color: '#ffffff' }}>Historial de Ventas</h2>
+          <p style={{ ...styles.subtitle, color: 'rgba(255, 255, 255, 0.75)' }}>Auditoría, control financiero y desglose de plantas vendidas</p>
         </div>
       </div>
-
-      {/* Contenedor de la Tabla */}
-      <div style={styles.tableWrapper}>
-        {cargando ? (
-          <div style={styles.loaderContainer}>
-            <div style={styles.spinner}></div>
-            <p style={styles.loaderText}>Sincronizando con el servidor de producción...</p>
-          </div>
-        ) : Array.isArray(ventas) && ventas.length > 0 ? (
-          <table style={styles.tablaCustom}>
-            <thead>
-              <tr>
-                <th style={{ ...styles.th, width: '10%' }}>ID Venta</th>
-                <th style={{ ...styles.th, width: '25%' }}>Fecha y Hora</th>
-                <th style={{ ...styles.th, width: '20%' }}>Atendió</th>
-                <th style={{ ...styles.th, width: '15%' }}>Método de Pago</th>
-                <th style={{ ...styles.th, width: '15%', textAlign: 'right' }}>Total</th>
-                <th style={{ ...styles.th, width: '15%', textAlign: 'center' }}>Detalles</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ventas.map((venta) => {
-                const esExpandida = filaExpandida === venta.id_venta;
-                return (
-                  <React.Fragment key={venta.id_venta}>
-                    {/* Fila Principal */}
-                    <tr 
-                      onClick={() => toggleFila(venta.id_venta)}
-                      style={esExpandida ? styles.trActive : styles.trNormal}
-                    >
-                      <td style={styles.tdId}>
-                        <span style={styles.idBadge}># {venta.id_venta}</span>
-                      </td>
-                      <td style={styles.td}>
-                        <div style={styles.flexCenter}>
-                          <Clock size={16} style={styles.tableIcon} />
-                          {formatearFecha(venta.fecha_venta)}
-                        </div>
-                      </td>
-                      <td style={styles.td}>
-                        <div style={styles.flexCenter}>
-                          <User size={16} style={styles.tableIcon} />
-                          <span style={styles.textDestacado}>
-                            {venta.nombre_cajero || `Cajero #${venta.id_usuario_cajero}`}
-                          </span>
-                        </div>
-                      </td>
-                      <td style={styles.td}>
-                        <span style={{
-                          ...styles.metodoBadge,
-                          backgroundColor: venta.metodo_pago === 'Efectivo' ? 'rgba(40, 167, 69, 0.15)' : 'rgba(0, 123, 255, 0.15)',
-                          color: venta.metodo_pago === 'Efectivo' ? '#28a745' : '#007bff'
-                        }}>
-                          <CreditCard size={12} style={{ marginRight: '6px' }} />
-                          {venta.metodo_pago}
-                        </span>
-                      </td>
-                      <td style={{ ...styles.td, textAlign: 'right', fontWeight: 'bold', color: '#2e7d32' }}>
-                        {formatearDinero(venta.total)}
-                      </td>
-                      <td style={{ ...styles.td, textAlign: 'center' }}>
-                        <button style={styles.btnExpand}>
-                          {esExpandida ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                        </button>
-                      </td>
-                    </tr>
-
-                    {/* Fila Desplegable (Desglose de Artículos) */}
-                    {esExpandida && (
-                      <tr>
-                        <td colSpan="6" style={styles.tdDetailsContainer}>
-                          <div style={styles.detailsBox}>
-                            <h4 style={styles.detailsTitle}>📦 Desglose de Artículos Comprados</h4>
-                            <div style={styles.detailsGrid}>
-                              {venta.detalles && venta.detalles.length > 0 ? (
-                                venta.detalles.map((det, index) => (
-                                  <div key={index} style={styles.itemCard}>
-                                    <div style={styles.itemHeader}>
-                                      <span style={styles.itemName}>{det.nombre_planta}</span>
-                                      {det.nombre_cientifico && (
-                                        <span style={styles.itemCientifico}>({det.nombre_cientifico})</span>
-                                      )}
-                                    </div>
-                                    <div style={styles.itemSpecs}>
-                                      <span>Cantidad: <strong>{det.cantidad} u.</strong></span>
-                                      <span>P. Unitario: <strong>{formatearDinero(det.precio_unitario)}</strong></span>
-                                      <span style={styles.subtotalText}>
-                                        Subtotal: {formatearDinero(det.cantidad * det.precio_unitario)}
-                                      </span>
-                                    </div>
-                                  </div>
-                                ))
-                              ) : (
-                                <p style={styles.noDetails}>No se encontraron sub-detalles para esta venta.</p>
-                              )}
-                            </div>
-                            
-                            {/* Panel Inferior del Ticket */}
-                            <div style={styles.ticketSummary}>
-                              <div style={styles.ticketRow}>
-                                <span>Monto Recibido:</span>
-                                <span>{formatearDinero(venta.pago_con || 0)}</span>
-                              </div>
-                              <div style={styles.ticketRow}>
-                                <span>Cambio Entregado:</span>
-                                <span style={{ color: '#c62828' }}>{formatearDinero(venta.cambio || 0)}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </tbody>
-          </table>
-        ) : (
-          <div style={styles.emptyContainer}>
-            <div style={styles.emptyIcon}>🍃</div>
-            <h3>Sin registros históricos</h3>
-            <p>Aún no se han procesado transacciones en la tabla ventas de MariaDB.</p>
-          </div>
-        )}
+      <div style={styles.badgeVentas}>
+        Total Registros: {ventas.length}
       </div>
     </div>
-  );
+
+    {/* Contenedor principal estilizado con fondo adaptado */}
+    <div style={{ ...styles.tableWrapper, backgroundColor: '#ffffff', padding: '10px', borderRadius: '16px' }}>
+      {cargando ? (
+        <div style={styles.loaderContainer}>
+          <div style={styles.spinner}></div>
+          <p style={styles.loaderText}>Sincronizando con el servidor de producción...</p>
+        </div>
+      ) : Array.isArray(ventas) && ventas.length > 0 ? (
+        <table style={styles.tablaCustom}>
+          <thead>
+            <tr>
+              <th style={{ ...styles.th, width: '10%', color: '#ffffff' }}>ID Venta</th>
+              <th style={{ ...styles.th, width: '25%', color: '#ffffff' }}>Fecha y Hora</th>
+              <th style={{ ...styles.th, width: '20%', color: '#ffffff' }}>Atendió</th>
+              <th style={{ ...styles.th, width: '30%', color: '#ffffff' }}>Productos Vendidos</th>
+              <th style={{ ...styles.th, width: '15%', textAlign: 'right', color: '#ffffff' }}>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ventas.map((venta) => (
+              <tr key={venta.id_venta} style={styles.trNormal}>
+                {/* Forzamos color oscuro para los textos internos de las celdas */}
+                <td style={{ ...styles.td, fontWeight: 'bold', color: '#1a202c' }}>
+                  #{venta.id_venta}
+                </td>
+                <td style={{ ...styles.td, color: '#2d3748' }}>
+                  <div style={styles.flexCenter}>
+                    <Clock size={16} style={styles.tableIcon} />
+                    {formatearFecha(venta.fecha_venta)}
+                  </div>
+                </td>
+                <td style={{ ...styles.td, color: '#2d3748', fontWeight: '500' }}>
+                  <div style={styles.flexCenter}>
+                    <User size={16} style={styles.tableIcon} />
+                    {venta.nombre_cajero || `Cajero #${venta.id_usuario_cajero}`}
+                  </div>
+                </td>
+                <td style={{ ...styles.td, color: '#4a5568' }}>
+                  {/* Aquí mapeas los productos con un estilo limpio */}
+                  {venta.detalles && venta.detalles.map((det, idx) => (
+                    <div key={idx} style={{ marginBottom: '4px' }}>
+                      • <strong>{det.cantidad}x</strong> {det.nombre_planta} <span style={{ color: '#718096', fontSize: '13px' }}>({formatearDinero(det.precio_unitario)} c/u)</span>
+                    </div>
+                  ))}
+                </td>
+                <td style={{ ...styles.td, textAlign: 'right', fontWeight: 'bold', color: '#2e7d32', fontSize: '16px' }}>
+                  {formatearDinero(venta.total)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div style={styles.emptyContainer}>
+          <div style={styles.emptyIcon}>🍃</div>
+          <h3>Sin registros históricos</h3>
+          <p>Aún no se han procesado transacciones en la tabla ventas de MariaDB.</p>
+        </div>
+      )}
+    </div>
+  </div>
+);
 }
 
 // 🎨 Arquitectura de Estilos en Línea Avanzada
