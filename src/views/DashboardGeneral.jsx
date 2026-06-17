@@ -15,7 +15,7 @@ import BalanceFinanciero from "../vistas/BalanceFinanciero";
 import GestionTemporadas from "../vistas/GestionTemporadas"; 
 
 // ➕ PASO 1: Importar tu nuevo componente desde la carpeta de vistas
-import { InventarioVentas } from "../vistas/InventarioVentas"; 
+import  InventarioVentas  from "../vistas/InventarioVentas"; 
 
 import ModalConfigLocalidad from "./ModalConfigLocalidad";
 
