@@ -12,8 +12,10 @@ import AltaAdministradores from "../vistas/AltaAdministradores";
 import InventarioGeneral from "../vistas/InventarioGeneral";
 import AltaPlantaForm from "../vistas/AltaPlantaForm";
 import BalanceFinanciero from "../vistas/BalanceFinanciero"; 
-// ➕ PASO 1: Importar el nuevo módulo de gestión de fechas
 import GestionTemporadas from "../vistas/GestionTemporadas"; 
+
+// ➕ PASO 1: Importar tu nuevo componente desde la carpeta de vistas
+import { InventarioVentas } from "../vistas/InventarioVentas"; 
 
 import ModalConfigLocalidad from "./ModalConfigLocalidad";
 
@@ -33,10 +35,8 @@ export default function DashboardGeneral({ usuario, onLogout }) {
   const [plantas, setPlantas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔄 PASO 2: Centralizar la función de carga para reutilizarla al refrescar estados
   const obtenerDatosDelVivero = async () => {
     try {
-      // Carga de temporadas
       try {
         const resTemporadas = await fetch('https://db-vivero-msc.onrender.com/temporadas');
         if (resTemporadas.ok) setTemporadas(await resTemporadas.json());
@@ -44,7 +44,6 @@ export default function DashboardGeneral({ usuario, onLogout }) {
         console.error("Error al cargar temporadas:", errTemp);
       }
 
-      // Carga de plantas
       try {
         const resPlantas = await fetch('https://db-vivero-msc.onrender.com/plantas');
         if (resPlantas.ok) {
@@ -64,7 +63,6 @@ export default function DashboardGeneral({ usuario, onLogout }) {
       setLoading(true);
       await obtenerDatosDelVivero();
       
-      // Carga de configuración del ticket
       try {
         const resConfig = await fetch('https://db-vivero-msc.onrender.com/config-ticket');
         if (resConfig.ok) {
@@ -179,13 +177,11 @@ export default function DashboardGeneral({ usuario, onLogout }) {
                     <span>➕</span> Dar de Alta Planta
                   </button>
 
-                  {/* ⚡ BOTÓN DEL MODAL INTERRUPTOR QUICK-SWITCH */}
                   <button className="btn btn-dark text-start py-2 d-flex align-items-center justify-content-between" onClick={() => { setModalTemporadasAbierto(true); setMenuAbierto(false); }}>
                     <span>🍂 Interruptor de Época</span>
                     <span className="badge bg-success text-white" style={{ fontSize: "10px" }}>Auto / Manual</span>
                   </button>
 
-                  {/* ➕ PASO 3: BOTÓN DE CONFIGURACIÓN DE FECHAS EN EL MENÚ */}
                   <button 
                     className={`btn text-start py-2 d-flex align-items-center gap-2 ${vistaActiva === 'gestion-temporadas' ? 'btn-light text-dark fw-bold' : 'btn-dark'}`}
                     onClick={() => { setVistaActiva("gestion-temporadas"); setMenuAbierto(false); }}
@@ -195,6 +191,14 @@ export default function DashboardGeneral({ usuario, onLogout }) {
                 </div>
 
                 <div className="text-white-50 small fw-bold mt-3 text-uppercase">Auditoría y Finanzas</div>
+                {/* ➕ PASO 2: Agregar el botón para navegar a tu nuevo historial */}
+                <button 
+                  className={`btn text-start py-2 d-flex align-items-center gap-2 ${vistaActiva === 'inventario-ventas' ? 'btn-light text-dark fw-bold' : 'btn-dark'}`}
+                  onClick={() => { setVistaActiva("inventario-ventas"); setMenuAbierto(false); }}
+                >
+                  <span>📋</span> Inventario de Ventas
+                </button>
+
                 <button 
                   className={`btn text-start py-2 d-flex align-items-center gap-2 ${vistaActiva === 'balance' ? 'btn-light text-dark fw-bold' : 'btn-dark'}`}
                   onClick={() => { setVistaActiva("balance"); setMenuAbierto(false); }}
@@ -234,7 +238,7 @@ export default function DashboardGeneral({ usuario, onLogout }) {
       {/* ==================== ENCABEZADO SUPERIOR ==================== */}
       <header className="p-3 text-white d-flex align-items-center gap-3" style={{ backgroundColor: "#1e4d2b" }}>
         <button className="btn btn-success p-2" onClick={() => setMenuAbierto(true)}>☰</button>
-        <h4 className="m-0 flex-grow-1">Sistema MSC Vivero</h4> {/* 🏷️ Corrección de MSC */}
+        <h4 className="m-0 flex-grow-1">Sistema MSC Vivero</h4>
         <img src={miLogo} alt="Logo" style={{ width: "45px", height: "45px", borderRadius: "50%" }} />
       </header>
 
@@ -251,7 +255,6 @@ export default function DashboardGeneral({ usuario, onLogout }) {
         )}
 
         {vistaActiva === "catalogo" && (
-          /* 🛡️ PASADO: Enviamos las temporadas al Catálogo para que filtre localmente */
           <CatalogoCliente plantas={plantas} temporadas={temporadas} />
         )}
 
@@ -271,15 +274,11 @@ export default function DashboardGeneral({ usuario, onLogout }) {
           <BalanceFinanciero />
         )}
 
-        <div className="text-white-50 small fw-bold mt-2 text-uppercase">Consulta</div>
-        <button 
-          className={`btn text-start py-2 d-flex align-items-center gap-2 ${vistaActiva === 'catalogo' ? 'btn-light text-dark fw-bold' : 'btn-dark'}`}
-          onClick={() => { setVistaActiva("catalogo"); setMenuAbierto(false); }}
-        >
-          <span>🌸</span> Ver Catálogo Disponible
-        </button>
+        {/* ➕ PASO 3: Renderizar tu componente cuando se seleccione en el menú */}
+        {vistaActiva === "inventario-ventas" && (
+          <InventarioVentas />
+        )}
 
-        {/* ➕ PASO 4: Renderizado de la nueva pantalla completa de Gestión de Fechas */}
         {vistaActiva === "gestion-temporadas" && (
           <GestionTemporadas />
         )}
@@ -305,7 +304,6 @@ export default function DashboardGeneral({ usuario, onLogout }) {
         usuario={usuario}
       />
 
-      {/* 🔄 PASO 5: Vinculación de la función refrescar para que actualice todo en caliente */}
       <ModalTemporadas 
         isOpen={modalTemporadasAbierto} 
         onClose={() => setModalTemporadasAbierto(false)} 

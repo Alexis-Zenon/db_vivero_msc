@@ -13,6 +13,52 @@ export class VentasService {
     private readonly dataSource: DataSource,
   ) {}
 
+  async obtenerTodasLasVentas() {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+
+    try {
+      // 1. Traemos todas las ventas ordenadas desde la más reciente, incluyendo el nombre del cajero si existe
+      const ventas = await queryRunner.manager.query(`
+      SELECT v.*, u.nombre AS nombre_cajero 
+      FROM ventas v
+      LEFT JOIN usuarios u ON v.id_usuario_cajero = u.id_usuario
+      ORDER BY v.fecha_venta DESC
+    `);
+
+      // 2. Por cada venta, buscamos sus artículos correspondientes
+      for (const venta of ventas) {
+        const detalles = await queryRunner.manager.query(
+          `
+        SELECT dv.*, p.nombre AS nombre_planta, p.nombre_cientifico
+        FROM detalle_ventas dv
+        LEFT JOIN plantas p ON dv.id_producto = p.id_planta
+        WHERE dv.id_venta = ?
+      `,
+          [venta.id_venta],
+        );
+
+        // Si borraste la planta, el nombre_planta vendrá como NULL.
+        // Lo parchamos para que en tu interfaz de React no se vea vacío:
+        venta.detalles = detalles.map((det) => ({
+          ...det,
+          nombre_planta:
+            det.nombre_planta ||
+            `Producto no disponible (ID: ${det.id_producto})`,
+        }));
+      }
+
+      return ventas;
+    } catch (error) {
+      console.error('Error al obtener historial de ventas:', error);
+      throw new InternalServerErrorException(
+        'No se pudo cargar el historial de ventas',
+      );
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
   async registrarVenta(createVentaDto: any) {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
