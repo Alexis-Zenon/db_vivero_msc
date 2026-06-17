@@ -1,4 +1,5 @@
-/* ==================== REGLAS ESPECIALES PARA IMPRESORAS ==================== */
+/* index.css
+ ==================== REGLAS ESPECIALES PARA IMPRESORAS ==================== */
 @media print {
   /* Oculta absolutamente toda la página web */
   .ocultar-en-impresion, header, main, footer, .position-fixed {
