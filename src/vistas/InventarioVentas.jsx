@@ -167,7 +167,7 @@ const styles = {
     borderRadius: '12px'
   },
   mainTitle: {
-    color: '#ffffff',
+    color: '#7a2020',
     margin: 0,
     fontSize: '24px',
     fontWeight: '600',
@@ -188,7 +188,7 @@ const styles = {
     boxShadow: '0 4px 15px rgba(255, 193, 7, 0.3)'
   },
   tableWrapper: {
-    background: '#ffffff',
+    background: '#9a1b1b',
     borderRadius: '16px',
     overflow: 'hidden',
     boxShadow: '0 12px 40px rgba(0,0,0,0.15)'
@@ -200,7 +200,7 @@ const styles = {
   },
   th: {
     backgroundColor: '#284d37', // El verde corporativo de tus botones superiores
-    color: '#ffffff',
+    color: '#a40c0c',
     padding: '18px 20px',
     fontSize: '14px',
     fontWeight: '600',
@@ -208,14 +208,14 @@ const styles = {
     letterSpacing: '0.5px'
   },
   trNormal: {
-    borderBottom: '1px solid #edf2f7',
+    borderBottom: '1px solid #264c72',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#573333'
   },
   trActive: {
-    backgroundColor: '#f1f8f4',
-    borderBottom: '1px solid #e1efe6',
+    backgroundColor: '#4d527b',
+    borderBottom: '1px solid #45b16b',
     cursor: 'pointer'
   },
   td: {
@@ -229,7 +229,7 @@ const styles = {
     verticalAlign: 'middle'
   },
   idBadge: {
-    backgroundColor: '#edf2f7',
+    backgroundColor: '#0e4c8b',
     color: '#4a5568',
     padding: '4px 10px',
     borderRadius: '6px',
@@ -269,12 +269,12 @@ const styles = {
     justifyContent: 'center'
   },
   tdDetailsContainer: {
-    backgroundColor: '#f7fafc',
+    backgroundColor: '#6baf59',
     padding: '24px 30px',
-    borderBottom: '1px solid #e2e8f0'
+    borderBottom: '1px solid #4c7324'
   },
   detailsBox: {
-    background: '#ffffff',
+    background: '#651a1a',
     borderLeft: '4px solid #284d37',
     borderRadius: '0 12px 12px 0',
     padding: '20px',
@@ -293,8 +293,8 @@ const styles = {
     marginBottom: '20px'
   },
   itemCard: {
-    backgroundColor: '#f8fafc',
-    border: '1px solid #e2e8f0',
+    backgroundColor: '#145392',
+    border: '1px solid #083167',
     borderRadius: '8px',
     padding: '12px 16px',
     display: 'flex',
@@ -323,7 +323,7 @@ const styles = {
     color: '#4a5568',
     flexWrap: 'wrap',
     gap: '8px',
-    borderTop: '1px dashed #e2e8f0',
+    borderTop: '1px dashed #141e2c',
     paddingTop: '6px'
   },
   subtotalText: {
@@ -335,7 +335,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'flex-end',
     gap: '6px',
-    borderTop: '1px solid #e2e8f0',
+    borderTop: '1px solid #0b5eca',
     paddingTop: '12px',
     maxWidth: '300px',
     marginLeft: 'auto'
